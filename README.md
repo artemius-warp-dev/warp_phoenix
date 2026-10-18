@@ -1,18 +1,15 @@
-# WarpPhoenix
+# warp_phoenix
 
-To start your Phoenix server:
+A minimal Phoenix JSON API used as a template for **containerised Elixir
+releases**: a multi-stage `Dockerfile` builds a `mix release` on Alpine and ships
+only the release in the final image.
 
-  * Install dependencies with `mix deps.get`
-  * Start Phoenix endpoint with `mix phx.server`
+```
+GET /api/hello  →  {"message": "Hello world!"}
+```
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
-
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
-
-## Learn more
-
-  * Official website: https://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Forum: https://elixirforum.com/c/phoenix-forum
-  * Source: https://github.com/phoenixframework/phoenix
+```sh
+mix deps.get && mix phx.server        # locally
+docker build -t warp_phoenix .        # as a release image
+docker run -p 4000:4000 -e SECRET_KEY_BASE=$(mix phx.gen.secret) warp_phoenix
+```
